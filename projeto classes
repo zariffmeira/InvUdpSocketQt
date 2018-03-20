@@ -1,0 +1,51 @@
+------------------------
+------------------------
+Classe InverterSocket
+
+Construtor: 
+UDP Socket
+connect nas funções de receber/enviar
+lê a lista do .txt e salva em um vetor: invertoresAtivos
+
+Métodos:
+listModif -> salva um inversor em uma posição da lista no .txt
+
+listRead  -> lê e retorna a lista do txt em suas posições
+
+receive   -> verifica se alguma mensagem udp pertence ou nao à lista do listRead
+	  -> se pertence: chama inverter.atualizarVariaveis e envia os dados
+          -> se não, cria e adiciona na ultima posição da lista do .txt e avisa ao qml ou o qml fica lendo invertoresAtivos
+
+send      -> recebe do qml o inversor e o comando e envia o frame UDP
+	  -> pode receber para enviar para todos ou para apenas 1 específico
+
+
+
+Variávies:
+invertoresAtivos[]
+tipoDeMensagemUDP
+mensagemUDP
+
+
+------------------------
+------------------------
+Classe Inverter
+
+Construtor:
+(ip, posição)
+
+Métodos:
+atualizaVariaveis
+readVariaveis
+
+Variáveis:
+ip
+posicao
+estados
+corrente
+temperatura
+mensagem +1
+mensagem -1
+corrent +1
+corrent -1
+
