@@ -15,7 +15,7 @@ inverterSocket::inverterSocket(unsigned int PORT)
 	this->socketBind();
 }
 
-inverterSocket::~inverterSocket(){}
+inverterSocket::~inverterSocket(){} 
 
 void inverterSocket::socketBind()
 {
@@ -25,16 +25,68 @@ void inverterSocket::socketBind()
 	}
 }
 
+
 void inverterSocket::receiveDatagram()
 {
+	int receive_len;
+	int found = 0;
+
+	// Receive the datagram
 	if((receive_len = recvfrom(my_socket, buffer, BUFFLEN, 0, 
 	                          (struct sockaddr *) &received, 
 	                          &struct_socket_len)) == -1)
 	{
 		exit(1);
 	}
-}
 
+	// If there is no problem, start the data processing
+	else
+	{
+		// Look if the inveter lives
+		for(int i=0; i < inverters.size(); i++){
+			if(this->udpAddress() == inverters[i].showAddr())
+			{
+				inverters[i].setCurrent(udpCurrent());
+				inverters[i].setNTC(udpNTC());
+				inverters[i].setState(udpState());
+				found = 1; 
+			}
+		}
+		// If is a new inverter: create and update data
+		if (!found)
+		{
+			inverter newInverter(this->udpAddress());			
+			newInverter.setCurrent(udpCurrent());
+			newInverter.setNTC(udpNTC());
+			newInverter.setState(udpState());
+			inverters.push_back(newInverter);
+			std::cout << "Found new inverter ip: " << this->udpAddress() << std::endl;
+		}
+
+		//size_t found = this->udpAddress().find_last_of(".");
+		//int address = stoi(this->udpAddress().substr(found+1));
+		//std::cout << address << endl;
+		//std::cout << inverters.size() << endl;
+		//if(address)
+		
+	}
+
+	
+
+	//inverters[0].setCurrent(this->udpCurrent());
+	//inv1.setState(server.udpState());
+	//inv1.setNTC(server.udpNTC());
+
+}
+/*
+void inverterSocket::sendDatagram()
+{
+	if (sendto(s, buf, recv_len, 0, (struct sockaddr*) &si_other, slen) == -1)
+	{
+		die("sendto()");
+	}
+}
+*/
 string inverterSocket::udpAddress()
 {
 	return inet_ntoa(received.sin_addr);
@@ -71,7 +123,10 @@ void inverterSocket::shutdownSocket()
 	shutdown(my_socket, 2);	
 }
 
-	
+vector<inverter> inverterSocket::showInverterVector()
+{
+	return inverters;
+}	
 
 
 

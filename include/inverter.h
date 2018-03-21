@@ -1,12 +1,15 @@
 #ifndef INVERTER_H
 #define INVERTER_H
 
+#include <iostream>
+#include <string>
+
 class inverter
 {
 
 public:
 
-	inverter(int);
+	inverter(std::string);
 	~inverter();
 
 	enum status{
@@ -25,19 +28,23 @@ public:
 	};
 
 	void setCurrent(int);
-	void setIpaddr(int);
+	void setIpaddr(std::string);
 	void setNTC(int);
 	void setState(int);
+	void setIpaddrInt(int);
 	int showState(void);
 	int showCurrent(void);
 	int showNTC(void);
+	std::string showAddr(void);
+	int showAddrInt(void);
 
 private:
 
 	status state;
 	int current;
 	int NTC;
-	int ipaddr;
+	std::string ipaddr;
+	int ipaddrInt;
 
 };
 

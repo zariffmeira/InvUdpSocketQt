@@ -1,6 +1,6 @@
 #include "../include/inverter.h"
 
-inverter::inverter(int ip_in) : ipaddr(ip_in)
+inverter::inverter(std::string ip_in) : ipaddr(ip_in)
 {
 	
 }
@@ -19,13 +19,25 @@ void inverter::setCurrent(int new_current)
 	} 
 }
 
-void inverter::setIpaddr(int new_ipaddr)
+void inverter::setIpaddr(std::string new_ipaddr)
 {
 	if(ipaddr == new_ipaddr) 
 		return;
 	else
 	{
 		ipaddr = new_ipaddr;
+		//futur signal
+		return;
+	} 
+}
+
+void inverter::setIpaddrInt (int new_ipaddrInt)
+{
+	if(ipaddrInt == new_ipaddrInt) 
+		return;
+	else
+	{
+		ipaddr = new_ipaddrInt;
 		//futur signal
 		return;
 	} 
@@ -95,4 +107,14 @@ int  inverter::showCurrent()
 int  inverter::showNTC()
 {
 	return NTC;
+}
+
+std::string  inverter::showAddr()
+{
+	return ipaddr;
+}
+
+int  inverter::showAddrInt()
+{
+	return ipaddrInt;
 }
