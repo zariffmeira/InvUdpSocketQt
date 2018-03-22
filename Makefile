@@ -4,7 +4,7 @@ LDIR   = lib
 SRDIR  = src
 BINDIR = bin
 
-CFLAGS = -I $(IDIR) -std=c++11
+CFLAGS = -I $(IDIR) -std=c++11 -pthread
 CXX    = g++
 LIBS   = -lm
 
