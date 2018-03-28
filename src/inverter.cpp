@@ -9,7 +9,7 @@ inverter::~inverter() { }
 
 void inverter::setState(int new_state)
 {
-	state = new_state;
+	this->state = new_state;
 	/*
 	switch (new_state)
 	{
@@ -204,7 +204,7 @@ void inverter::setIpaddrInt (int new_ipaddrInt)
 		return;
 	else
 	{
-		ipaddr = new_ipaddrInt;
+		ipaddrInt = new_ipaddrInt;
 		//futur signal
 		return;
 	} 

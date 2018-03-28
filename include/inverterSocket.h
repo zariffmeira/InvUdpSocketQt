@@ -10,7 +10,8 @@
 #include <fcntl.h>
 #include <../include/inverter.h>
 #include <vector>
-#include <arpa/inet.h>
+#include <unistd.h>
+#include <ctime>
 
 #define BUFFLEN 256 
 #define SEND_M_SIZE 8
@@ -36,6 +37,7 @@ public:
 	int udpNTC(void);
 	void shutdownSocket(void);
 	vector<inverter> showInverterVector(void);
+	int showSeqListPos(int);
 
 	void go_reset(inverter);
 	void go_on(inverter);
@@ -44,6 +46,7 @@ public:
 	void go_cc_M(inverter);
 	void go_cc_P(inverter);
 	void go_reset_all(vector<inverter>);
+	void go_list(void);
 
 
 private:
@@ -52,9 +55,11 @@ private:
 	unsigned int struct_socket_len = sizeof(received);
 	int my_socket;
 	int PORT;
+	std::clock_t start;
 
 	// Vector of inverters
 	vector<inverter> inverters;
+	int * sequence_list;
 
 	// Message received variables
 	char buffer[BUFFLEN];
@@ -69,51 +74,6 @@ private:
 	unsigned char goCcP[SEND_M_SIZE]  = {0,0,212,0,0,0,1,0};
 
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

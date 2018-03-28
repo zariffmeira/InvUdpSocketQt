@@ -8,10 +8,10 @@ CFLAGS = -I $(IDIR) -std=c++11 -pthread
 CXX    = g++
 LIBS   = -lm
 
-_DEPS = inverter.h inverterSocket.h
+_DEPS = inverter.h inverterSocket.h inverterUSB.h
 DEPS  = $(patsubst %,$(IDIR)/%,$(_DEPS))
 
-_OBJ  = main.o inverter.o inverterSocket.o
+_OBJ  = main.o inverter.o inverterSocket.o inverterUSB.o
 OBJ   = $(patsubst %,$(ODIR)/%,$(_OBJ))
 
 $(ODIR)/%.o: $(SRDIR)/%.cpp $(DEPS)
